@@ -1,15 +1,19 @@
 import { Alert, Backdrop, CircularProgress, Snackbar } from '@mui/material'
 import { useState } from 'react'
 
-export function useFeedback() {
+export function useFeedback(global = true) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
   const Feedback = () => (
     <>
-      <Backdrop open={isLoading}>
-        <CircularProgress />
-      </Backdrop>
+      {global ? (
+        <Backdrop open={isLoading}>
+          <CircularProgress />
+        </Backdrop>
+      ) : (
+        isLoading && <CircularProgress />
+      )}
       <Snackbar
         open={!!error}
         autoHideDuration={6000}
